@@ -1,0 +1,16 @@
+.grid-minefild{
+    display: flex;
+}
+
+.grid-minefild > * {
+    border: 2px solid red;
+    aspect-ratio: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+}
+
+.cella{
+    background-color: rgba(255, 0, 0, 0.234);
+}
