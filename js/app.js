@@ -43,16 +43,21 @@ function startGame(){
        grigliaElement.append(cellaElement);
 
 
-    
      //2. Al click su una cella si deve stampare il numero relativo alla cella cliccata sulla console
-        cellaElement.addEventListener('click', function(){
-            console.log(indiceIncrementato);
+        // cellaElement.addEventListener('click', function(){
+        //     // console.log(indiceIncrementato);
 
-            //BONUS Aggiungere una classe per cambiarle il colore di background
-            cellaElement.classList.add('cella');
-            // console.log(cellaElement);
-        });
+        //     //BONUS Aggiungere una classe per cambiarle il colore di background
+        //     cellaElement.classList.add('cella');
+        //     // console.log(cellaElement);
+        // });
+
+        cellaElement.addEventListener('click', onClick);
+
     };
+
+    return 'Fine';
+
 }
 
 //1.5 Creare una funzione resetGame
@@ -62,3 +67,18 @@ function resetGame(){
     //1.5.2 Svuotare la griglia
     grigliaElement.innerHTML = '';
 }
+
+//2. Al click su una cella si deve stampare il numero relativo alla cella cliccata sulla console e togliere l'evento click per non poter far cliccare più di una volta la cella
+function onClick(event) {
+    // console.log(event);
+    // console.log(event.target);
+    // console.log(this);
+    // console.log(event.target === this);
+    // const cella = event.target
+    const cellaContent = this;
+    console.log(cellaContent.innerHTML);
+
+    cellaContent.classList.add('cella')
+    cellaContent.removeEventListener('click', onClick)
+}
+
