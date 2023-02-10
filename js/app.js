@@ -11,40 +11,8 @@ const BtnElement = document.querySelector('.btn');
 //1.3 Creare un evento click sulla variabile del bottone
 BtnElement.addEventListener('click', startGame);
 
-// BOMBE
-//3. Creare un ArraybombeArray per le bombe 
-let bombeArray = [];
-console.log(bombeArray);
 
-do{
-    let lato = 10;
-    let celle = lato ** 2
-    let numeroRandom = Math.floor(Math.random() * (celle - 0 + 1) ) + 0;
-
-
-
-    let trovato = false;
-
-    for(let i = 0; i < bombeArray.length - 1; i++){
-        indice = bombeArray[i];
-
-        if(numeroRandom === indice){
-            trovato = true;
-        }
-    }
-
-    if(!trovato){
-        bombeArray.push(numeroRandom);
-    }
-
-} while(bombeArray.length <= 16);
-
-
-
-// console.log('finalmente usciti dal ciclo while');
-
-
-/// FUNZIONI CREAZIONE GRIGLIA///
+/// FUNZIONI///
 
 //1.4 Creare una funzione StartGame
 function startGame(){
@@ -75,9 +43,51 @@ function startGame(){
        //1.4.3.3 Stampiamo nel DOM (append)
        grigliaElement.append(cellaElement);
 
+       cellaElement.addEventListener('click', function(){
+            for(let i = 0; i < bombeArray.length - 1; i++){
+
+                cellaElement.innerHTML = '';
+
+                if(bombeArray.includes(indiceIncrementato)){
+                    cellaElement.classList.add('cella-bomb');
+                    console.log('Hai perso!!')
+                    setTimeout(resetGame,500);
+                    break
+                } else {
+                    cellaElement.classList.add('cella-true');
+                }
+
+            }
+        })
+
        cellaElement.addEventListener('click', onClick);
+       
 
     };
+
+    let bombeArray = [];
+    // console.log(bombeArray);
+
+    do{
+        let lato = 10;
+        let celle = lato ** 2
+        let numeroRandom = Math.floor(Math.random() * (celle - 0 + 1) ) + 0;
+
+        let trovato = false;
+
+        for(let i = 0; i < bombeArray.length - 1; i++){
+            indice = bombeArray[i];
+
+            if(numeroRandom === indice){
+               trovato = true;
+            }
+        }
+
+       if(!trovato){
+            bombeArray.push(numeroRandom);
+        }
+
+    } while(bombeArray.length <= 16);
 
     return 'Fine';
 
@@ -98,11 +108,10 @@ function onClick(event) {
     // console.log(this);
     // console.log(event.target === this);
     // const cella = event.target
-    const cellaContent = this;
-    console.log(cellaContent.innerHTML);
+    const cella = this;
+    // console.log(cella.innerHTML);
 
-    cellaContent.classList.add('cella')
-    cellaContent.removeEventListener('click', onClick)
+    cella.removeEventListener('click', onClick)
 }
 
 /// FUNZIONI BOMBE///

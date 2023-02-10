@@ -3,7 +3,7 @@
 }
 
 .grid-minefild > * {
-    border: 2px solid red;
+    border: 2px solid black;
     aspect-ratio: 1;
 	display: flex;
 	justify-content: center;
@@ -11,6 +11,32 @@
 	font-size: 20px;
 }
 
-.cella{
+.cella-bomb{
     background-color: rgba(255, 0, 0, 0.234);
+    position: relative;
+}
+
+.cella-bomb::after{
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f1e2";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cella-true{
+    background-color: rgba(34, 255, 0, 0.364);
+    position: relative;
+}
+
+.cella-true::after{
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f67c";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
