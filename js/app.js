@@ -11,14 +11,47 @@ const BtnElement = document.querySelector('.btn');
 //1.3 Creare un evento click sulla variabile del bottone
 BtnElement.addEventListener('click', startGame);
 
+// BOMBE
+//3. Creare un ArraybombeArray per le bombe 
+let bombeArray = [];
+console.log(bombeArray);
 
-/// FUNZIONI ///
+do{
+    let lato = 10;
+    let celle = lato ** 2
+    let numeroRandom = Math.floor(Math.random() * (celle - 0 + 1) ) + 0;
+
+
+
+    let trovato = false;
+
+    for(let i = 0; i < bombeArray.length - 1; i++){
+        indice = bombeArray[i];
+
+        if(numeroRandom === indice){
+            trovato = true;
+        }
+    }
+
+    if(!trovato){
+        bombeArray.push(numeroRandom);
+    }
+
+} while(bombeArray.length <= 16);
+
+
+
+// console.log('finalmente usciti dal ciclo while');
+
+
+/// FUNZIONI CREAZIONE GRIGLIA///
 
 //1.4 Creare una funzione StartGame
 function startGame(){
     console.log('Start!!!')
     // resettare la griglia
     resetGame();
+
     //1.4.1 Creare una variabile con il valore che vogliamo dare al lato della griglia (10)
     let latoGriglia = 10;
     // console.log(latoGriglia);
@@ -42,17 +75,7 @@ function startGame(){
        //1.4.3.3 Stampiamo nel DOM (append)
        grigliaElement.append(cellaElement);
 
-
-     //2. Al click su una cella si deve stampare il numero relativo alla cella cliccata sulla console
-        // cellaElement.addEventListener('click', function(){
-        //     // console.log(indiceIncrementato);
-
-        //     //BONUS Aggiungere una classe per cambiarle il colore di background
-        //     cellaElement.classList.add('cella');
-        //     // console.log(cellaElement);
-        // });
-
-        cellaElement.addEventListener('click', onClick);
+       cellaElement.addEventListener('click', onClick);
 
     };
 
@@ -82,3 +105,4 @@ function onClick(event) {
     cellaContent.removeEventListener('click', onClick)
 }
 
+/// FUNZIONI BOMBE///
