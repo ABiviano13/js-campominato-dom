@@ -1,14 +1,14 @@
 // CREAZIONE GRIGLIA
-//1. Creazione della griglia (essa verrà generata al click sul bottone)
-//1.1 Creare una variabile che si prenda il contenitore della griglia dal DOM
+//Creazione della griglia (essa verrà generata al click sul bottone)
+//Creare una variabile che si prenda il contenitore della griglia dal DOM
 const grigliaElement = document.querySelector('.grid-minefild');
 // console.log(grigliaElement);
 
-//1.2 Creare una variabile che si prenda il bottone PLAY dal DOM
+//Creare una variabile che si prenda il bottone PLAY dal DOM
 const BtnElement = document.querySelector('.btn');
 // console.log(BtnElement);
 
-//1.3 Creare un evento click sulla variabile del bottone
+//Creare un evento click sulla variabile del bottone
 BtnElement.addEventListener('click', startGame);
 
 const scoreElement = document.getElementById('score');
@@ -20,7 +20,7 @@ let currentIndex = 1;
 
 /// FUNZIONI///
 
-//1.4 Creare una funzione StartGame
+//Creare una funzione StartGame
 function startGame(){
     console.log('Start!!!')
     // resettare la griglia
@@ -42,19 +42,19 @@ function startGame(){
     }
 
 
-    //1.4.3 Creare un ciclo for
+    //Creare un ciclo for
     for (let i = 0; i < griglia; i++){
-       //1.4.3.1 Creiamo una variabile numero con l'indice incrementato di uno 
+       //1 Creiamo una variabile numero con l'indice incrementato di uno 
        let indiceIncrementato = i + 1;
        //console.log(indiceIncrementato);
-       //1.4.3.2 Creiamo l'elemento che sarà la cella (createElement)
+       //2 Creiamo l'elemento che sarà la cella (createElement)
        const cellaElement = document.createElement('div');
        // console.log(cellaElement);
        cellaElement.style.width = 'calc(100% /' + latoGriglia + ')';
        // console.log(cellaElement);
 
        cellaElement.innerHTML += indiceIncrementato;
-       //1.4.3.3 Stampiamo nel DOM (append)
+       //3 Stampiamo nel DOM (append)
        grigliaElement.append(cellaElement);
 
        cellaElement.addEventListener('click', function(){
@@ -64,13 +64,12 @@ function startGame(){
                 cellaElement.classList.add('cella-bomb');
                 // console.log('Hai perso!!')
                 scoreElement.innerHTML = 'Hai perso!';
-                setTimeout(resetGame,700);
+                setTimeout(resetGame, 500);
                
             } else {
                 cellaElement.classList.add('cella-true');
                 scoreElement.innerHTML = currentIndex ++;
                 // console.log(currentIndex)
-                
             }
         })
 
@@ -80,12 +79,9 @@ function startGame(){
     };
 
     let bombeArray = [];
-    // console.log(bombeArray);
 
     do{
-        let lato = 10;
-        let celle = lato ** 2
-        let numeroRandom = Math.floor(Math.random() * (celle - 0 + 1) ) + 0;
+        let numeroRandom = Math.floor(Math.random() * (griglia - 1 + 1) ) + 1;
 
         let trovato = false;
 
@@ -99,25 +95,25 @@ function startGame(){
 
        if(!trovato){
             bombeArray.push(numeroRandom);
+            // console.log(bombeArray);
         }
 
-    } while(bombeArray.length <= 16);
+    } while(bombeArray.length < 16);
 
     return 'Fine';
 
 }
 
-//1.5 Creare una funzione resetGame
-
+//Creare una funzione resetGame
 function resetGame(){
-    //1.5.1 Azzerare la cella
-    //1.5.2 Svuotare la griglia
+    //1 Azzerare la cella
+    //2 Svuotare la griglia
     grigliaElement.innerHTML = '';
     scoreElement.innerHTML = '';
     currentIndex = 1;
 }
 
-//2. Al click su una cella si deve stampare il numero relativo alla cella cliccata sulla console e togliere l'evento click per non poter far cliccare più di una volta la cella
+//Al click su una cella si deve stampare il numero relativo alla cella cliccata sulla console e togliere l'evento click per non poter far cliccare più di una volta la cella
 function onClick(event) {
     // console.log(event);
     // console.log(event.target);
