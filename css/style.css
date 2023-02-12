@@ -1,3 +1,7 @@
+body{
+    font-size: 20px;
+}
+
 .grid-minefild{
     display: flex;
 }
@@ -8,7 +12,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 20px;
 }
 
 .cella-bomb{
@@ -39,4 +42,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.score-minefild{
+    font-weight: bold;
+}
+
+.text-select{
+    font-size: 10px;
 }
