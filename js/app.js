@@ -44,7 +44,7 @@ function startGame(){
         griglia = isGeneratorGriglia(isLatoGriglia(7));
     }
 
-    do{
+    while(bombeArray.length < 16){
         let numeroRandom = Math.floor(Math.random() * (griglia - 1 + 1) ) + 1;
 
         let trovato = false;
@@ -61,8 +61,7 @@ function startGame(){
             bombeArray.push(numeroRandom);
             console.log(bombeArray);
         }
-
-    } while(bombeArray.length < 16);
+    }
 
 
     //Creare un ciclo for
@@ -127,7 +126,7 @@ function onClick(event) {
             scoreElement.innerHTML = 'Hai vinto!';
             gameOver();
         }
-     }
+    }
 
     cella.removeEventListener('click', onClick)
 }
