@@ -17,6 +17,11 @@ const difficultyElement = document.getElementById('difficulty');
 
 let currentIndex = 1;
 
+let bombeArray = [];
+
+let latoGriglia = 0;
+let griglia = 0;
+
 
 /// FUNZIONI///
 
@@ -27,8 +32,6 @@ function startGame(){
     resetGame();
 
     const valuedifficulty = difficultyElement.value;
-    let latoGriglia = 0;
-    let griglia = 0;
 
     if (valuedifficulty === 'cells100') {
         latoGriglia = isLatoGriglia(10);
@@ -40,6 +43,26 @@ function startGame(){
         latoGriglia = isLatoGriglia(7);
         griglia = isGeneratorGriglia(isLatoGriglia(7));
     }
+
+    do{
+        let numeroRandom = Math.floor(Math.random() * (griglia - 1 + 1) ) + 1;
+
+        let trovato = false;
+
+        for(let i = 0; i < bombeArray.length - 1; i++){
+            indice = bombeArray[i];
+
+            if(numeroRandom === indice){
+               trovato = true;
+            }
+        }
+
+       if(!trovato){
+            bombeArray.push(numeroRandom);
+            console.log(bombeArray);
+        }
+
+    } while(bombeArray.length < 16);
 
 
     //Creare un ciclo for
@@ -57,48 +80,8 @@ function startGame(){
        //3 Stampiamo nel DOM (append)
        grigliaElement.append(cellaElement);
 
-       cellaElement.addEventListener('click', function(){
-            cellaElement.innerHTML = '';
-
-            if(bombeArray.includes(indiceIncrementato)){
-                cellaElement.classList.add('cella-bomb');
-                // console.log('Hai perso!!')
-                scoreElement.innerHTML = 'Hai perso!';
-                setTimeout(resetGame, 500);
-               
-            } else {
-                cellaElement.classList.add('cella-true');
-                scoreElement.innerHTML = currentIndex ++;
-                // console.log(currentIndex)
-            }
-        })
-
        cellaElement.addEventListener('click', onClick);
-       
-
     };
-
-    let bombeArray = [];
-
-    do{
-        let numeroRandom = Math.floor(Math.random() * (griglia - 1 + 1) ) + 1;
-
-        let trovato = false;
-
-        for(let i = 0; i < bombeArray.length - 1; i++){
-            indice = bombeArray[i];
-
-            if(numeroRandom === indice){
-               trovato = true;
-            }
-        }
-
-       if(!trovato){
-            bombeArray.push(numeroRandom);
-            // console.log(bombeArray);
-        }
-
-    } while(bombeArray.length < 16);
 
     return 'Fine';
 
@@ -123,6 +106,29 @@ function onClick(event) {
     const cella = this;
     // console.log(cella.innerHTML);
 
+    cella.innerHTML = '';
+
+    if(bombeArray.includes(currentIndex)){
+       cella.classList.add('cella-bomb');
+        // console.log('Hai perso!!')
+        scoreElement.innerHTML = 'Hai perso!';
+        gameOver()
+        setTimeout(resetGame, 500);
+               
+    } else {
+        cella.classList.add('cella-true');
+        scoreElement.innerHTML = currentIndex ++;
+        // console.log(currentIndex)
+
+        //controllo se l'utente ha vinto
+        let caselleCliccabili = griglia - bombeArray.length;
+
+        if(caselleCliccabili === currentIndex){
+            scoreElement.innerHTML = 'Hai vinto!';
+            gameOver();
+        }
+     }
+
     cella.removeEventListener('click', onClick)
 }
 
@@ -136,4 +142,14 @@ function isGeneratorGriglia(num1){
     const celle = num1 ** 2;
     // console.log(celle);
     return celle;
+}
+
+function gameOver(){
+    const cella = this;
+    
+    for(let i = 0; i < cella.length; i++){
+        const indiceCella = cella[i];
+
+        cella.removeEventListener('click', onClick)
+    }
 }
